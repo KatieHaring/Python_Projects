@@ -1,4 +1,8 @@
-#TEST EDIT
+import random
+
+
+
+#Create Enemy class
 class Enemy:
   def __init__(self, name, level, damage, special_act, health=0):
     self.name = name
@@ -81,6 +85,7 @@ class Enemy:
 
 
 
+#Create Player class
 class Player:
   def __init__(self, name, level, damage, special_act, health=0):
     self.name = name
@@ -161,23 +166,81 @@ class Player:
         self.health += self.damage
         print("{name} took {damage} health from {enemy}!".format(name=self.name, damage=self.damage, enemy=enemy.name))  
 
-Player1 = Player(name="Misako", level=5, damage=10, special_act="Drain")
-Player2 = Player(name="Kyoko", level=5, damage=10, special_act="Flying Kick")
-
-School_Girl = Enemy(name="School Girl Susan", level = 2, damage = 4, special_act = "Multiple Jabs")
-Tiger_Man = Enemy(name="Tiger Man Bob", level = 5, damage = 10, special_act = "Potion")
-
-#print(Player1)
-#print(Player2)
-#print(School_Girl)
-#print(Tiger_Man)
 
 
-Player1.punch(Tiger_Man)
-Tiger_Man.punch(Player1)
-#Player1.kick(Tiger_Man)
-#Tiger_Man.kick(Player1)
-Player1.use_special(Tiger_Man) 
-Tiger_Man.use_special(Player1) 
-Tiger_Man.slap(Player1)
-Player1.taunt(Tiger_Man)
+#Create 2 main player types
+Misako = Player(name="Misako", level=5, damage=10, special_act="Drain")
+Kyoko = Player(name="Kyoko", level=5, damage=10, special_act="Flying Kick")
+
+
+
+#Create enemies
+Skeezeball = Enemy(name=random.choice(["Skeezeball Wade", "Skeezeball Zach", "Skeezeball Stan"]),
+                    level = 1, damage = 1, special_act="Drain")
+
+Bully = Enemy(name=random.choice(["Bully Dino", "Bully Tina", "Bully Zachariah"]), 
+                    level = 2, damage = 3, special_act = "Drain")
+
+School_Girl = Enemy(name=random.choice(["School Girl Susan", "School Girl Kelly", "School Girl Hannah"]),
+                    level = 3, damage = 4, special_act = "Multiple Jabs")
+
+Punk = Enemy(name=random.choice(["Punk Danielle", "Punk Zoe", "Punk Harris"]), 
+                    level = 4, damage = 8, special_act = "Flying Kick")
+
+Tiger_Man = Enemy(name=random.choice(["Tiger Man Bob", "Tiger Man Joe", "Tiger Man Zeus"]),
+                    level = 5, damage = 10, special_act = "Potion")
+
+Yakuza = Enemy(name=random.choice(["Yakuza Tim", "Yakuza Michelle", "Yakuza Lee"]),  
+                    level = 6, damage = 11, special_act = "Multiple Jabs")
+
+
+
+
+
+def gameplay():
+    # Choose your fighter
+    Choice = input("Do you want to play as Misako or Kyoko? ")
+    
+    # Make sure the player chose a valid fighter
+    while Choice not in ("Misako","Kyoko"):
+      Choice = input("Please enter either Misako or Kyoko. ")
+    print("")
+    
+    # Set the Active Player
+    if Choice == "Misako":
+        Active_Player = Misako
+    else:
+        Active_Player = Kyoko
+
+    # Set the active enemy
+    Active_Enemy = random.choice([Skeezeball, Bully, School_Girl, Punk, Tiger_Man, Yakuza])  
+      
+    # Initiate conflict
+    print("You are attacked by " + 
+          Active_Enemy.name +
+          "!")
+    print("")
+    
+    # Ask the player for their move
+    print("Which attack would you like to use?")
+    print("Taunt, Punch, Kick, or Special Attack")
+    Attack = input("Enter your attack: ")
+     
+    # Make sure the player chose a valid move
+    while Attack not in ("Taunt", "Punch", "Kick", "Special Attack"):
+      Attack = input("Please pick a valid attack: ")   
+    
+    # Attack 
+    if Attack == "Taunt":
+        Active_Player.taunt(Active_Enemy)
+    elif Attack == "Punch":
+        Active_Player.punch(Active_Enemy)
+    elif Attack == "Kick":
+        Active_Player.kick(Active_Enemy)
+    elif Attack == "Special Attack":
+        Active_Player.use_special(Active_Enemy)
+        
+    # Get attacked
+    
+
+gameplay()
