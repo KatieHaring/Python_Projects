@@ -1,6 +1,18 @@
 
 import random
 
+beatemup = """
+  ____             _      _                   _    _       
+ |  _ \           | |    ( )                 | |  | |      
+ | |_) | ___  __ _| |_   |/  ___ _ __ ___    | |  | |_ __  
+ |  _ < / _ \/ _` | __|     / _ \ '_ ` _ \   | |  | | '_ \ 
+ | |_) |  __/ (_| | |_     |  __/ | | | | |  | |__| | |_) |
+ |____/ \___|\__,_|\__|     \___|_| |_| |_|   \____/| .__/ 
+                                                    | |    
+                                                    |_|    
+"""
+
+print(beatemup)
 
 
 # Create Enemy class
@@ -12,10 +24,12 @@ class Enemy:
     self.damage = damage
     self.special_act = special_act
 
+  # Describe the enemy
   def __repr__(self):
     description = "This level {level} enemy is called {name}. They have {health} points of health and deal {damage} damage. Their special action is {special_act}.".format(level = self.level, name = self.name, health = self.health, damage = self.damage, special_act = self.special_act)
     return description
 
+  # Slap the player
   def slap(self, player):
     if self.health <= 0 :
       print("{name1} can't slap {name2}; they're knocked out!".format(name1=self.name, name2=player.name))
@@ -24,6 +38,7 @@ class Enemy:
     else :
       print("{name1} slaps {name2}. It doesn't hurt her, but it's super rude.".format(name1=self.name, name2=player.name))
 
+  # Punch the player
   def punch(self, player):
     if self.health <= 0 :
       print("{name} can't attack; they're knocked out!".format(name=self.name))
@@ -38,6 +53,7 @@ class Enemy:
       else:
         print("{name1} punches {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(self.damage)))
 
+  # Kick the player
   def kick(self, player):
     if self.health <= 0 :
       print("{name} can't attack; they're knocked out!".format(name=self.name))
@@ -52,6 +68,7 @@ class Enemy:
       else:
         print("{name1} kicks {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(round(self.damage,0))))
         
+  # Use a special attack on the player 
   def use_special(self, player):
     if self.special_act == "Potion":
       if self.health <= 0 :
@@ -115,10 +132,12 @@ class Player:
     self.damage = damage   
     self.special_act = special_act
 
+  # Describe the Player 
   def __repr__(self):
     description = "This level {level} player is called {name}. They have {health} points of health and deal {damage} damage. Their special action is {special_act}.".format(level = self.level, name = self.name, health = self.health, damage = self.damage, special_act = self.special_act)
     return description
 
+  # Punch the enemy
   def punch(self, enemy):
     if self.health <= 0 :
       print("{name} can't attack; she's knocked out!".format(name=self.name))
@@ -132,6 +151,7 @@ class Player:
       else:
         print("{name} took {damage} damage!".format(name=enemy.name, damage=int(self.damage)))   
 
+  # Kick the enemy
   def kick(self, enemy):
     if self.health <= 0 :
       print("{name} can't attack; she's knocked out!".format(name=self.name))
@@ -145,6 +165,7 @@ class Player:
       else:
         print("{name} took {damage} damage!".format(name=enemy.name, damage=int(round(self.damage*3/2,0)))) 
 
+  # Taunt the enemy
   def taunt(self, enemy):
     if self.health <= 0 :
       print("{name1} can't taunt {name2}; she's knocked out!".format(name1=self.name, name2=enemy.name))
@@ -153,6 +174,7 @@ class Player:
     else:
       print("{name1} calls {name2} a dirty landlubber. They don't know what to say to that...".format(name1=self.name, name2=enemy.name))
 
+  # Use a special attack
   def use_special(self, enemy):
     if self.special_act == "Potion":
       if self.health <= 0 :
@@ -203,38 +225,31 @@ class Player:
  
 
 
-# Create 2 main player types
-Misako = Player(name="Misako", level=5, damage=10, special_act="Drain")
-Kyoko = Player(name="Kyoko", level=5, damage=10, special_act="Flying Kick")
-
-
-
-# Create enemies
-Skeezeball = Enemy(name=random.choice(["Skeezeball Wade", "Skeezeball Zach", "Skeezeball Stan"]),
-                    level = 1, damage = 1, special_act="Drain")
-
-Bully = Enemy(name=random.choice(["Bully Dino", "Bully Tina", "Bully Jerome"]), 
-                    level = 2, damage = 3, special_act = "Drain")
-
-School_Girl = Enemy(name=random.choice(["School Girl Susan", "School Girl Kelly", "School Girl Hannah"]),
-                    level = 3, damage = 4, special_act = "Multiple Jabs")
-
-Punk = Enemy(name=random.choice(["Punk Danielle", "Punk Zoe", "Punk Harris"]), 
-                    level = 4, damage = 8, special_act = "Flying Kick")
-
-Tiger_Man = Enemy(name=random.choice(["Tiger Man Bob", "Tiger Man Joe", "Tiger Man Zeus"]),
-                    level = 5, damage = 10, special_act = "Potion")
-
-Yakuza = Enemy(name=random.choice(["Yakuza Tim", "Yakuza Michelle", "Yakuza Lee"]),  
-                    level = 6, damage = 11, special_act = "Multiple Jabs")
-
-Enemy_List = [Skeezeball, Bully, School_Girl, Punk, Tiger_Man, Yakuza]
-
-
-
-
 def gameplay():
-    # Choose your fighter
+    # Create 2 main player characters
+    Misako = Player(name="Misako", level=5, damage=10, special_act="Drain")
+    Kyoko = Player(name="Kyoko", level=5, damage=10, special_act="Flying Kick")
+
+    # Create enemies
+    Bully = Enemy(name=random.choice(["Bully Dino", "Bully Tina", "Bully Jerome"]), 
+                        level = 2, damage = 3, special_act = "Drain")
+    
+    School_Girl = Enemy(name=random.choice(["School Girl Susan", "School Girl Kelly", "School Girl Hannah"]),
+                        level = 3, damage = 4, special_act = "Multiple Jabs")
+    
+    Punk = Enemy(name=random.choice(["Punk Danielle", "Punk Zoe", "Punk Harris"]), 
+                        level = 4, damage = 8, special_act = "Flying Kick")
+    
+    Tiger_Man = Enemy(name=random.choice(["Tiger Man Bob", "Tiger Man Joe", "Tiger Man Zeus"]),
+                        level = 5, damage = 10, special_act = "Potion")
+    
+    Yakuza = Enemy(name=random.choice(["Yakuza Tim", "Yakuza Michelle", "Yakuza Lee"]),  
+                        level = 6, damage = 11, special_act = "Multiple Jabs")
+    
+    # Create enemy list
+    Enemy_List = [Bully, School_Girl, Punk, Tiger_Man, Yakuza]    
+    
+    # Have the player choose their fighter
     Choice = input("Do you want to play as Misako or Kyoko? ")
     
     # Make sure the player chose a valid fighter
@@ -247,75 +262,96 @@ def gameplay():
         Active_Player = Misako
     else:
         Active_Player = Kyoko
-
-    # Set the active enemy
-    Possible_Enemies = [enemy for enemy in Enemy_List if enemy.level <= Active_Player.level and enemy.health >= 0]
-    Active_Enemy = random.choice(Possible_Enemies)  
-      
-    # Initiate conflict
-    print("You are attacked by " + 
-          Active_Enemy.name +
-          "!")
-    print("")
     
-    # Continue conflict while everyone is conscious
-    while Active_Player.health > 0 and Active_Enemy.health > 0 :
-    
-        # Ask the player for their move
-        print("Which attack would you like to use?")
-        print("Taunt, Punch, Kick, or Special Attack")
-        Attack = input("Enter your attack: ")
-         
-        # Make sure the player chose a valid move
-        while Attack not in ("Taunt", "Punch", "Kick", "Special Attack"):
-          Attack = input("Please pick a valid attack: ")   
+    # Loop through all the enemies
+    for enemy in Enemy_List:
+        Active_Enemy = enemy
         
-        # Attack 
-        if Attack == "Taunt":
-            Active_Player.taunt(Active_Enemy)
+        # Only initiate conflict if the player is conscious
+        if Active_Player.health > 0 :
+            # Initiate conflict
+            print("You are attacked by " + 
+                  Active_Enemy.name +
+                  "!")
             print("")
-        elif Attack == "Punch":
-            Active_Player.punch(Active_Enemy)
-            print("")
-        elif Attack == "Kick":
-            Active_Player.kick(Active_Enemy)
-            print("")
-        elif Attack == "Special Attack":
-            Active_Player.use_special(Active_Enemy)
-            print("")
+        
+        # Continue conflict while everyone is conscious
+        while Active_Player.health > 0 and Active_Enemy.health > 0 :
+        
+            # Ask the player for their move 
+            print("Which attack would you like to use?")
+            print("Taunt, Punch, Kick, or Special Attack")
+            Attack = input("Enter your attack: ")
+             
+            # Make sure the player chose a valid move 
+            while Attack not in ("Taunt", "Punch", "Kick", "Special Attack"):
+              Attack = input("Please pick a valid attack: ")   
             
-        # Break if someone's no longer conscious
-        if Active_Player.health <= 0 or Active_Enemy.health <= 0 :
-            break
-        
-        # Get attacked
-        Enemy_Attack = random.choice(["Slap", "Punch", "Kick", "Special Attack"])
-         
-        if Enemy_Attack == "Slap":
-            Active_Enemy.slap(Active_Player)
-            print("")
-        elif Enemy_Attack == "Punch":
-            Active_Enemy.punch(Active_Player)
-            print("")
-        elif Enemy_Attack == "Kick":
-            Active_Enemy.kick(Active_Player)
-            print("")
-        elif Enemy_Attack == "Special Attack":
-            Active_Enemy.use_special(Active_Player)
-            print("")   
+            # Attack 
+            if Attack == "Taunt":
+                Active_Player.taunt(Active_Enemy)
+                print("")
+            elif Attack == "Punch":
+                Active_Player.punch(Active_Enemy)
+                print("")
+            elif Attack == "Kick":
+                Active_Player.kick(Active_Enemy)
+                print("")
+            elif Attack == "Special Attack":
+                Active_Player.use_special(Active_Enemy)
+                print("")
+                
+            # Break if someone's no longer conscious
+            if Active_Player.health <= 0 or Active_Enemy.health <= 0 :
+                break
+            
+            # Get attacked
+            Enemy_Attack = random.choice(["Slap", "Punch", "Kick", "Special Attack"])
+             
+            if Enemy_Attack == "Slap":
+                Active_Enemy.slap(Active_Player)
+                print("")
+            elif Enemy_Attack == "Punch":
+                Active_Enemy.punch(Active_Player)
+                print("")
+            elif Enemy_Attack == "Kick":
+                Active_Enemy.kick(Active_Player)
+                print("")
+            elif Enemy_Attack == "Special Attack":
+                Active_Enemy.use_special(Active_Player)
+                print("")   
     
+    # If the player is still conscious after knocking out all enemies, they've won!
+    if Active_Player.health > 0:
+        print("You won!")
+        print("")
+        
+    # Whether they've won or lost, they can play again:
+    print("Would you like to play again?")
+    print("Yes or No")
+    Again = input("")
+    
+    # Make sure the player chose a valid option
+    while Again not in ("Yes","No"):
+      Again = input("Please enter either Yes or No. ") 
+    
+    # If they chose play again, allow them to play again
+    if Again == "Yes":
+      gameplay()
+        
     
 gameplay()
 
 
 #To Do 
-### Create a loop to fight all villains 
-### Create You Win text
-### Create Play Again?/Try Again? process after winning/losing 
 ### Add more comments
 ### Remove extraneous elements ("X can't attack b/c X/Y is knocked out")
+### Make sure drain can only remove as much health as a character actually has
+### Add more taunts 
+### Convert all damage to a multiple of level?
 ### Additional text cleaning?
 
-### (DONE) Change the enemy order to only have enemies at or below your level attack you
-### (DONE) Add level ups every time an enemy is defeated 
-### (DONE) Fix how some attack damages have decimals and some are integers
+### (DONE) Create a loop to fight all villains 
+### (DONE) Create You Win text
+### (DONE) Create Play Again?/Try Again? process after winning/losing 
+### (DONE) Add a cool header
