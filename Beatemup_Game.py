@@ -36,7 +36,7 @@ class Enemy:
         print("{name2} has been knocked out!".format(name2=player.name))
         print("You lose!")
       else:
-        print("{name1} punches {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=self.damage))
+        print("{name1} punches {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(self.damage)))
 
   def kick(self, player):
     if self.health <= 0 :
@@ -50,7 +50,7 @@ class Enemy:
         print("{name2} has been knocked out!".format(name2=player.name))
         print("You lose!")
       else:
-        print("{name1} kicks {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=self.damage))
+        print("{name1} kicks {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(round(self.damage,0))))
         
   def use_special(self, player):
     if self.special_act == "Potion":
@@ -72,7 +72,7 @@ class Enemy:
           print("{name2} has been knocked out!".format(name2=player.name))
           print("You lose!")
         else:
-          print("{name1} used a flying kick on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=self.damage*2))       
+          print("{name1} used a flying kick on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(self.damage*2)))       
 
     elif self.special_act == "Multiple Jabs":
       if self.health <= 0 :
@@ -86,7 +86,7 @@ class Enemy:
           print("{name2} has been knocked out!".format(name2=player.name))
           print("You lose!")
         else:
-          print("{name1} used multiple jabs on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=self.damage*3))       
+          print("{name1} used multiple jabs on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(self.damage*3)))       
 
     elif self.special_act == "Drain":
       if self.health <= 0 :
@@ -97,11 +97,11 @@ class Enemy:
         player.health -= self.damage
         self.health += self.damage
         if player.health <= 0:
-          print("{name1} took {damage} health from {name2}.".format(name1=self.name, name2=player.name, damage=self.damage))         
+          print("{name1} took {damage} health from {name2}.".format(name1=self.name, name2=player.name, damage=round(self.damage,0)))         
           print("{name2} has been knocked out!".format(name2=player.name))
           print("You lose!")
         else:
-          print("{name1} took {damage} health from {name2}.".format(name1=self.name, name2=player.name, damage=self.damage))         
+          print("{name1} used drain. {name1} took {damage} health from {name2}!".format(name1=self.name, name2=player.name, damage=int(self.damage)))         
         
 
 
@@ -127,9 +127,10 @@ class Player:
     else :
       enemy.health -= self.damage
       if enemy.health <= 0 :
+        self.level += 1
         print("{name} has been knocked out!".format(name=enemy.name))
       else:
-        print("{name} took {damage} damage!".format(name=enemy.name, damage=self.damage))   
+        print("{name} took {damage} damage!".format(name=enemy.name, damage=int(self.damage)))   
 
   def kick(self, enemy):
     if self.health <= 0 :
@@ -139,9 +140,10 @@ class Player:
     else :
       enemy.health -= self.damage*3/2 
       if enemy.health <= 0 :
+        self.level +=1
         print("{name} has been knocked out!".format(name=enemy.name))
       else:
-        print("{name} took {damage} damage!".format(name=enemy.name, damage=self.damage*3/2)) 
+        print("{name} took {damage} damage!".format(name=enemy.name, damage=int(round(self.damage*3/2,0)))) 
 
   def taunt(self, enemy):
     if self.health <= 0 :
@@ -167,9 +169,10 @@ class Player:
       else :
         enemy.health -= self.damage*2
         if enemy.health <= 0:    
+          self.level += 1
           print("{name2} has been knocked out!".format(name2=enemy.name))
         else:
-          print("{name1} used a flying kick on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=enemy.name, damage=self.damage*2))       
+          print("{name1} used a flying kick on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=enemy.name, damage=int(self.damage*2)))       
 
     elif self.special_act == "Multiple Jabs":
       if self.health <= 0 :
@@ -179,9 +182,10 @@ class Player:
       else :
         enemy.health -= self.damage*3
         if enemy.health <= 0 :   
+          self.level += 1
           print("{name2} has been knocked out!".format(name2=enemy.name))
         else:
-          print("{name1} used multiple jabs on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=enemy.name, damage=self.damage*3))       
+          print("{name1} used multiple jabs on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=enemy.name, damage=int(self.damage*3)))       
 
     elif self.special_act == "Drain":
       if self.health <= 0 :
@@ -192,9 +196,10 @@ class Player:
         enemy.health -= self.damage
         self.health += self.damage
         if enemy.health <= 0:     
+          self.level += 1
           print("{name2} has been knocked out!".format(name2=enemy.name))
         else:
-          print("{name1} took {damage} health from {name2}.".format(name1=self.name, name2=enemy.name, damage=self.damage))         
+          print("{name1} used drain. {name1} took {damage} health from {name2}!".format(name1=self.name, name2=enemy.name, damage=int(self.damage)))         
  
 
 
@@ -227,6 +232,7 @@ Enemy_List = [Skeezeball, Bully, School_Girl, Punk, Tiger_Man, Yakuza]
 
 
 
+
 def gameplay():
     # Choose your fighter
     Choice = input("Do you want to play as Misako or Kyoko? ")
@@ -243,7 +249,8 @@ def gameplay():
         Active_Player = Kyoko
 
     # Set the active enemy
-    Active_Enemy = random.choice(Enemy_List)  
+    Possible_Enemies = [enemy for enemy in Enemy_List if enemy.level <= Active_Player.level and enemy.health >= 0]
+    Active_Enemy = random.choice(Possible_Enemies)  
       
     # Initiate conflict
     print("You are attacked by " + 
@@ -305,7 +312,10 @@ gameplay()
 ### Create a loop to fight all villains 
 ### Create You Win text
 ### Create Play Again?/Try Again? process after winning/losing 
-### Change the enemy order to only have enemies at or below your level attack you
-### Add level ups every time an enemy is defeated 
-### Fix how some attack damages have decimals and some are integers
+### Add more comments
+### Remove extraneous elements ("X can't attack b/c X/Y is knocked out")
 ### Additional text cleaning?
+
+### (DONE) Change the enemy order to only have enemies at or below your level attack you
+### (DONE) Add level ups every time an enemy is defeated 
+### (DONE) Fix how some attack damages have decimals and some are integers
