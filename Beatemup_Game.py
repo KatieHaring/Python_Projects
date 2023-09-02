@@ -15,6 +15,8 @@ beatemup = """
 print(beatemup)
 
 
+
+
 # Create Enemy class
 class Enemy:
   def __init__(self, name, level, damage, special_act, health=0):
@@ -31,94 +33,62 @@ class Enemy:
 
   # Slap the player
   def slap(self, player):
-    if self.health <= 0 :
-      print("{name1} can't slap {name2}; they're knocked out!".format(name1=self.name, name2=player.name))
-    elif player.health <= 0 :
-      print("{name1} slaps {name2}...which is super fucked up, because she's passed out...".format(name1=self.name, name2=player.name))
-    else :
-      print("{name1} slaps {name2}. It doesn't hurt her, but it's super rude.".format(name1=self.name, name2=player.name))
+    print("{name1} slaps {name2}. It doesn't hurt her, but it's super rude.".format(name1=self.name, name2=player.name))
 
   # Punch the player
   def punch(self, player):
-    if self.health <= 0 :
-      print("{name} can't attack; they're knocked out!".format(name=self.name))
-    elif player.health <= 0 :
-      print("{name1} can't attack; {name2} is knocked out!".format(name1=self.name, name2=player.name))
-    else :
-      player.health -= self.damage
-      if player.health <= 0 :
-        print("{name1} punches {name2}.".format(name1=self.name, name2=player.name))
-        print("{name2} has been knocked out!".format(name2=player.name))
-        print("You lose!")
-      else:
-        print("{name1} punches {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(self.damage)))
+    player.health -= self.damage
+    if player.health <= 0 :
+      print("{name1} punches {name2}.".format(name1=self.name, name2=player.name))
+      print("{name2} has been knocked out!".format(name2=player.name))
+      print("You lose!")
+    else:
+      print("{name1} punches {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(self.damage)))
 
   # Kick the player
   def kick(self, player):
-    if self.health <= 0 :
-      print("{name} can't attack; they're knocked out!".format(name=self.name))
-    elif player.health <= 0 :
-      print("{name1} can't attack; {name2} is knocked out!".format(name1=self.name, name2=player.name))
-    else :
-      player.health -= self.damage*3/2
-      if player.health <= 0 :
-        print("{name1} kicks {name2}.".format(name1=self.name, name2=player.name))
-        print("{name2} has been knocked out!".format(name2=player.name))
-        print("You lose!")
-      else:
-        print("{name1} kicks {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(round(self.damage,0))))
+    player.health -= self.damage*3/2
+    if player.health <= 0 :
+      print("{name1} kicks {name2}.".format(name1=self.name, name2=player.name))
+      print("{name2} has been knocked out!".format(name2=player.name))
+      print("You lose!")
+    else:
+      print("{name1} kicks {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(round(self.damage,0))))
         
   # Use a special attack on the player 
   def use_special(self, player):
     if self.special_act == "Potion":
-      if self.health <= 0 :
-        print("{name} can't use a potion; they're knocked out!".format(name=self.name))
-      else :
-        self.health += 5
-        print("{name} used a potion and regained 5 health!".format(name=self.name))       
+      self.health += 5
+      print("{name} used a potion and regained 5 health!".format(name=self.name))       
 
     elif self.special_act == "Flying Kick":
-      if self.health <= 0 :
-        print("{name} can't attack; they're knocked out!".format(name=self.name))
-      elif player.health <= 0 :
-        print("{name1} can't attack; {name2} is knocked out!".format(name1=self.name, name2=player.name))
-      else :
-        player.health -= self.damage*2
-        if player.health <= 0:
-          print("{name1} used a flying kick on {name2}.".format(name1=self.name, name2=player.name))       
-          print("{name2} has been knocked out!".format(name2=player.name))
-          print("You lose!")
-        else:
-          print("{name1} used a flying kick on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(self.damage*2)))       
+      player.health -= self.damage*2
+      if player.health <= 0:
+        print("{name1} used a flying kick on {name2}.".format(name1=self.name, name2=player.name))       
+        print("{name2} has been knocked out!".format(name2=player.name))
+        print("You lose!")
+      else:
+        print("{name1} used a flying kick on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(self.damage*2)))       
 
     elif self.special_act == "Multiple Jabs":
-      if self.health <= 0 :
-        print("{name} can't attack; they're knocked out!".format(name=self.name))
-      elif player.health <= 0 :
-        print("{name1} can't attack; {name2} is knocked out!".format(name1=self.name, name2=player.name))
-      else :
-        player.health -= self.damage*3
-        if player.health <= 0:
-          print("{name1} used multiple jabs on {name2}.".format(name1=self.name, name2=player.name))       
-          print("{name2} has been knocked out!".format(name2=player.name))
-          print("You lose!")
-        else:
-          print("{name1} used multiple jabs on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(self.damage*3)))       
+      player.health -= self.damage*3
+      if player.health <= 0:
+        print("{name1} used multiple jabs on {name2}.".format(name1=self.name, name2=player.name))       
+        print("{name2} has been knocked out!".format(name2=player.name))
+        print("You lose!")
+      else:
+        print("{name1} used multiple jabs on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=player.name, damage=int(self.damage*3)))       
 
     elif self.special_act == "Drain":
-      if self.health <= 0 :
-        print("{name} can't attack; they're knocked out!".format(name=self.name))
-      elif player.health <= 0 :
-        print("{name1} can't attack; {name2} is knocked out!".format(name1=self.name, name2=player.name))
-      else :     
-        player.health -= self.damage
-        self.health += self.damage
-        if player.health <= 0:
-          print("{name1} took {damage} health from {name2}.".format(name1=self.name, name2=player.name, damage=round(self.damage,0)))         
-          print("{name2} has been knocked out!".format(name2=player.name))
-          print("You lose!")
-        else:
-          print("{name1} used drain. {name1} took {damage} health from {name2}!".format(name1=self.name, name2=player.name, damage=int(self.damage)))         
+      begin_health = player.health
+      player.health -= min(begin_health, self.damage)
+      self.health += min(begin_health, self.damage)
+      if player.health <= 0:
+        print("{name1} took {damage} health from {name2}.".format(name1=self.name, name2=player.name, damage=int(round(min(begin_health, self.damage),0))))         
+        print("{name2} has been knocked out!".format(name2=player.name))
+        print("You lose!")
+      else:
+        print("{name1} used drain. {name1} took {damage} health from {name2}!".format(name1=self.name, name2=player.name, damage=int(self.damage)))         
         
 
 
@@ -139,90 +109,59 @@ class Player:
 
   # Punch the enemy
   def punch(self, enemy):
-    if self.health <= 0 :
-      print("{name} can't attack; she's knocked out!".format(name=self.name))
-    elif enemy.health <= 0 :
-      print("{name1} can't attack; {name2} is knocked out!".format(name1=self.name, name2=enemy.name))
-    else :
-      enemy.health -= self.damage
-      if enemy.health <= 0 :
-        self.level += 1
-        print("{name} has been knocked out!".format(name=enemy.name))
-      else:
-        print("{name} took {damage} damage!".format(name=enemy.name, damage=int(self.damage)))   
+    enemy.health -= self.damage
+    if enemy.health <= 0 :
+      self.level += 1
+      print("{name} has been knocked out!".format(name=enemy.name))
+    else:
+      print("{name} took {damage} damage!".format(name=enemy.name, damage=int(self.damage)))   
 
   # Kick the enemy
   def kick(self, enemy):
-    if self.health <= 0 :
-      print("{name} can't attack; she's knocked out!".format(name=self.name))
-    elif enemy.health <= 0 :
-      print("{name1} can't attack; {name2} is knocked out!".format(name1=self.name, name2=enemy.name))
-    else :
-      enemy.health -= self.damage*3/2 
-      if enemy.health <= 0 :
-        self.level +=1
-        print("{name} has been knocked out!".format(name=enemy.name))
-      else:
-        print("{name} took {damage} damage!".format(name=enemy.name, damage=int(round(self.damage*3/2,0)))) 
+    enemy.health -= self.damage*3/2 
+    if enemy.health <= 0 :
+      self.level +=1
+      print("{name} has been knocked out!".format(name=enemy.name))
+    else:
+      print("{name} took {damage} damage!".format(name=enemy.name, damage=int(round(self.damage*3/2,0)))) 
 
   # Taunt the enemy
   def taunt(self, enemy):
-    if self.health <= 0 :
-      print("{name1} can't taunt {name2}; she's knocked out!".format(name1=self.name, name2=enemy.name))
-    elif enemy.health <= 0 :
-      print("{name1} calls {name2} a doodoo-head, which is pretty fucked up because they're passed out...".format(name1=self.name, name2=enemy.name))
-    else:
-      print("{name1} calls {name2} a dirty landlubber. They don't know what to say to that...".format(name1=self.name, name2=enemy.name))
+    print("{name1} calls {name2} a dirty landlubber. They don't know what to say to that...".format(name1=self.name, name2=enemy.name))
 
   # Use a special attack
   def use_special(self, enemy):
     if self.special_act == "Potion":
-      if self.health <= 0 :
-        print("{name} can't use a potion; she's knocked out!".format(name=self.name))
-      else :
-        self.health += 5
-        print("{name} regained 5 health!".format(name=self.name))      
+      self.health += 5
+      print("{name} regained 5 health!".format(name=self.name))      
 
     elif self.special_act == "Flying Kick":
-      if self.health <= 0 :
-        print("{name} can't attack; they're knocked out!".format(name=self.name))
-      elif enemy.health <= 0 :
-        print("{name1} can't attack; {name2} is knocked out!".format(name1=self.name, name2=enemy.name))
-      else :
-        enemy.health -= self.damage*2
-        if enemy.health <= 0:    
-          self.level += 1
-          print("{name2} has been knocked out!".format(name2=enemy.name))
-        else:
-          print("{name1} used a flying kick on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=enemy.name, damage=int(self.damage*2)))       
+      enemy.health -= self.damage*2
+      if enemy.health <= 0:    
+        self.level += 1
+        print("{name2} has been knocked out!".format(name2=enemy.name))
+      else:
+        print("{name1} used a flying kick on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=enemy.name, damage=int(self.damage*2)))       
 
     elif self.special_act == "Multiple Jabs":
-      if self.health <= 0 :
-        print("{name} can't attack; she's knocked out!".format(name=self.name))
-      elif enemy.health <= 0 :
-        print("{name1} can't attack; {name2} is knocked out!".format(name1=self.name, name2=enemy.name))
-      else :
-        enemy.health -= self.damage*3
-        if enemy.health <= 0 :   
-          self.level += 1
-          print("{name2} has been knocked out!".format(name2=enemy.name))
-        else:
-          print("{name1} used multiple jabs on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=enemy.name, damage=int(self.damage*3)))       
+      enemy.health -= self.damage*3
+      if enemy.health <= 0 :   
+        self.level += 1
+        print("{name2} has been knocked out!".format(name2=enemy.name))
+      else:
+        print("{name1} used multiple jabs on {name2}. {name2} takes {damage} damage!".format(name1=self.name, name2=enemy.name, damage=int(self.damage*3)))       
 
     elif self.special_act == "Drain":
-      if self.health <= 0 :
-        print("{name} can't attack; she's knocked out!".format(name=self.name))
-      elif enemy.health <= 0 :
-        print("{name1} can't attack; {name2} is knocked out!".format(name1=self.name, name2=enemy.name))
-      else :     
-        enemy.health -= self.damage
-        self.health += self.damage
-        if enemy.health <= 0:     
-          self.level += 1
-          print("{name2} has been knocked out!".format(name2=enemy.name))
-        else:
-          print("{name1} used drain. {name1} took {damage} health from {name2}!".format(name1=self.name, name2=enemy.name, damage=int(self.damage)))         
+      begin_health = enemy.health
+      enemy.health -= min(self.damage, begin_health)
+      self.health += min(self.damage, begin_health)
+      if enemy.health <= 0:     
+        self.level += 1
+        print("{name2} has been knocked out!".format(name2=enemy.name))
+      else:
+        print("{name1} used drain. {name1} took {damage} health from {name2}!".format(name1=self.name, name2=enemy.name, damage=int(round(min(self.damage, begin_health),0))))         
  
+
 
 
 def gameplay():
@@ -339,19 +278,20 @@ def gameplay():
     if Again == "Yes":
       gameplay()
         
+      
+      
     
 gameplay()
 
 
+
+
 #To Do 
-### Add more comments
-### Remove extraneous elements ("X can't attack b/c X/Y is knocked out")
-### Make sure drain can only remove as much health as a character actually has
+### Add more comments 
 ### Add more taunts 
 ### Convert all damage to a multiple of level?
 ### Additional text cleaning?
 
-### (DONE) Create a loop to fight all villains 
-### (DONE) Create You Win text
-### (DONE) Create Play Again?/Try Again? process after winning/losing 
-### (DONE) Add a cool header
+### (DONE) Remove extraneous elements ("X can't attack b/c X/Y is knocked out")
+### (DONE) Make sure drain can only remove as much health as a character actually has
+
